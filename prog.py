@@ -1,5 +1,7 @@
 import argparse
 import unittest
+import func
+
 
 class Test00(unittest.TestCase):
     def test_q000(self):
@@ -8,7 +10,7 @@ class Test00(unittest.TestCase):
         文字列”stressed”の文字を逆に（末尾から先頭に向かって）並べた文字列を得よ．
         """
         text = 'stressed'
-        answer = text[::-1]
+        answer = func.q000.reverse(text)
 
         self.assertEqual(answer, 'desserts')
 
@@ -18,7 +20,7 @@ class Test00(unittest.TestCase):
         「パタトクカシーー」という文字列の1,3,5,7文字目を取り出して連結した文字列を得よ．
         """
         text = 'パタトクカシーー'
-        answer = text
+        answer = func.q001.extract(text)
 
         self.assertEqual(answer, 'パトカー')
 
@@ -29,7 +31,7 @@ class Test00(unittest.TestCase):
         """
         text1 = 'パトカー'
         text2 = 'タクシー'
-        answer = text1 + text2
+        answer = func.q002.mix_str(text1, text2)
 
         self.assertEqual(answer, 'パタトクカシーー')
 
@@ -42,7 +44,7 @@ class Test00(unittest.TestCase):
         ピリオド、カンマ排除しようか。
         """
         text = 'Now I need a drink, alcoholic of course, after the heavy lectures involving quantum mechanics.'
-        answer = []
+        answer = func.q003.word_len_list(text)
 
         right_answer = [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8, 9, 7, 9]
         self.assertListEqual(answer, right_answer)
@@ -55,10 +57,10 @@ class Test00(unittest.TestCase):
         取り出した文字列から単語の位置（先頭から何番目の単語か）への連想配列（辞書型もしくはマップ型）を作成せよ．
         """
         text = 'Hi He Lied Because Boron Could Not Oxidize Fluorine. New Nations Might Also Sign Peace Security Clause. Arthur King Can.'
-        answer = {}
+        answer = func.q004.pos_map(text)
 
         right_answer = {
-            'H': 1, 'He': 2, 
+            'H': 1, 'He': 2,
             'Li': 3, 'Be': 4, 'B': 5, 'C': 6, 'N': 7, 'O': 8, 'F': 9, 'Ne': 10,
             'Na': 11, 'Mi': 12, 'Al': 13, 'Si': 14, 'P': 15, 'S': 16, 'Cl': 17, 'Ar': 18,
             'K': 19, 'Ca': 20
@@ -74,9 +76,10 @@ class Test00(unittest.TestCase):
         bi-gram: uni(1), bi(2), try(3)
         """
         text = 'I am an NLPer'
-        char_bigram = []
-        word_bigram = []
-        self.assertListEqual(char_bigram, ['I ', 'am', ' a', 'n ', 'NL', 'Pe', 'r'])
+        char_bigram = func.q005.char_n_gram(text, 2)
+        word_bigram = func.q005.word_n_gram(text, 2)
+        self.assertListEqual(
+            char_bigram, ['I ', 'am', ' a', 'n ', 'NL', 'Pe', 'r'])
         self.assertListEqual(word_bigram, ['I', 'am', 'an', 'NL'])
 
     def test_q006(self):
@@ -88,11 +91,12 @@ class Test00(unittest.TestCase):
         """
         text1 = 'paraparaparadise'
         text2 = 'paragraph'
-        add_set = {}
-        product_set = {}    # 積集合、集合A集合Bの両方に含まれている要素の集合
-        sub_set = {}
+        add_set = func.q006.text_add_set(text1, text2)
+        product_set = func.q006.text_product_set(text1, text2)
+        sub_set = func.q006.text_sub_set(text1, text2)
 
-        self.assertSetEqual(add_set, {'p', 'a', 'r', 'g', 'p', 'h', 'd', 'i', 's', 'e'})
+        self.assertSetEqual(
+            add_set, {'p', 'a', 'r', 'g', 'p', 'h', 'd', 'i', 's', 'e'})
         self.assertSetEqual(product_set, {'p', 'a', 'r'})
         self.assertSetEqual(sub_set, {'d', 'i', 's', 'e'})
 
@@ -103,7 +107,7 @@ class Test00(unittest.TestCase):
         さらに，x=12, y=”気温”, z=22.4として，実行結果を確認せよ．
         """
         x, y, z = '12', '気温', '22.4'
-        answer = '' #func(x, y, z)
+        answer = func.q007.get_text(x, y, z)
         self.assertEqual(answer, '12時の気温は22.4')
 
     def test_q008(self):
@@ -116,9 +120,9 @@ class Test00(unittest.TestCase):
         この関数を用い，英語のメッセージを暗号化・復号化せよ．
         """
         text = 'supercalifragilisticexpialidocious'
-        enq_text = ''
-        deq_text = ''
-        self.assertEqual(deq_text, text)
+        enc_text = func.q008.encrypt(text)
+        dec_text = func.q008.decrypt(enc_text)
+        self.assertEqual(dec_text, text)
 
     def test_q009(self):
         """
@@ -129,13 +133,15 @@ class Test00(unittest.TestCase):
         適当な英語の文（例えば”I couldn’t believe that I could actually understand what I was reading : the phenomenal power of the human mind .”）を与え，その実行結果を確認せよ．
         """
         text = 'I couldn’t believe that I could actually understand what I was reading : the phenomenal power of the human mind .'
-        answer = ''
+        answer = func.q009.shuffle_text(text)
 
-        # テスト
-        self.assertRegex(answer, 'I c[ouldn’]{6}t b[eliev]{5}e that I c[oul]{3}d a[ctuall]{6}y u[nderstan]{8}d what I was r[eadin]{5}g : the p[henomena]{8}l p[owe]{3}r of the h[uma]{3}n mind .')
+        self.assertRegex(
+            answer, 'I c[ouldn’]{6}t b[eliev]{5}e that I c[oul]{3}d a[ctuall]{6}y u[nderstan]{8}d what I was r[eadin]{5}g : the p[henomena]{8}l p[owe]{3}r of the h[uma]{3}n mind .')
+
 
 def main():
     unittest.main()
+
 
 if __name__ == '__main__':
     main()
