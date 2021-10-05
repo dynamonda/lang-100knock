@@ -1,4 +1,6 @@
 from typing import List, Dict, Set
+from operator import add
+from functools import reduce
 
 
 class q000:
@@ -11,14 +13,14 @@ class q001:
     @classmethod
     def extract(cls, text: str) -> str:
         """文字列の1,3,5,7文字目を取り出して連結した文字列"""
-        return text
+        return text[:8:2]
 
 
 class q002:
     @classmethod
     def mix_str(cls, text1: str, text2: str) -> str:
         """文字を先頭から交互に連結した文字列を返す"""
-        return text1 + text2
+        return ''.join(reduce(add, zip(text1, text2)))
 
 
 class q003:
