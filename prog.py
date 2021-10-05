@@ -3,7 +3,8 @@ import unittest
 import func
 
 
-class Test00(unittest.TestCase):
+class Test01(unittest.TestCase):
+    """準備運動"""
     def test_q000(self):
         """
         00. 文字列の逆順Permalink
@@ -138,6 +139,16 @@ class Test00(unittest.TestCase):
         self.assertRegex(
             answer, 'I c[ouldn’]{6}t b[eliev]{5}e that I c[oul]{3}d a[ctuall]{6}y u[nderstan]{8}d what I was r[eadin]{5}g : the p[henomena]{8}l p[owe]{3}r of the h[uma]{3}n mind .')
 
+class Test02(unittest.TestCase):
+    """Unixコマンド
+    
+    省略
+    """
+    pass
+
+class Test03(unittest.TestCase):
+    """正規表現"""
+    pass
 
 def main():
     unittest.main()
